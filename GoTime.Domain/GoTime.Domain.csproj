@@ -7,4 +7,9 @@
   <ItemGroup>
     <PackageReference Include="Evento" Version="4.3.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GoTime.ApplicationServices\GoTime.ApplicationServices.csproj" />
+    <ProjectReference Include="..\GoTime.Models\GoTime.Models.csproj" />
+  </ItemGroup>
 </Project>

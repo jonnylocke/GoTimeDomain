@@ -11,6 +11,21 @@
           "lib/netstandard2.0/Evento.dll": {}
         }
       },
+      "Evento.Repository/4.3.0": {
+        "type": "package",
+        "dependencies": {
+          "EventStore.Client": "5.0.0",
+          "Evento": "4.3.0",
+          "Microsoft.Csharp": "4.5.0",
+          "Newtonsoft.Json": "12.0.1"
+        },
+        "compile": {
+          "lib/netstandard2.0/Evento.Repository.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Evento.Repository.dll": {}
+        }
+      },
       "EventStore.Client/5.0.1": {
         "type": "package",
         "dependencies": {
@@ -81,6 +96,15 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.AspNetCore.Http.Features.dll": {}
+        }
+      },
+      "Microsoft.CSharp/4.5.0": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.0/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/_._": {}
         }
       },
       "Microsoft.DotNet.PlatformAbstractions/2.0.4": {
@@ -601,7 +625,7 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
-      "Newtonsoft.Json/11.0.2": {
+      "Newtonsoft.Json/12.0.1": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
@@ -2005,6 +2029,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.2",
         "dependencies": {
+          "EventStore.Client": "5.0.1",
           "Evento": "4.3.0",
           "GoTime.Domain": "1.0.0"
         },
@@ -2015,17 +2040,42 @@
           "bin/placeholder/GoTime.Adapters.dll": {}
         }
       },
+      "GoTime.ApplicationServices/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.2",
+        "dependencies": {
+          "GoTime.Models": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/GoTime.ApplicationServices.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/GoTime.ApplicationServices.dll": {}
+        }
+      },
       "GoTime.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.2",
         "dependencies": {
-          "Evento": "4.3.0"
+          "Evento": "4.3.0",
+          "GoTime.ApplicationServices": "1.0.0",
+          "GoTime.Models": "1.0.0"
         },
         "compile": {
           "bin/placeholder/GoTime.Domain.dll": {}
         },
         "runtime": {
           "bin/placeholder/GoTime.Domain.dll": {}
+        }
+      },
+      "GoTime.Models/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.2",
+        "compile": {
+          "bin/placeholder/GoTime.Models.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/GoTime.Models.dll": {}
         }
       }
     }
@@ -2042,6 +2092,19 @@
         "evento.nuspec",
         "lib/net462/Evento.dll",
         "lib/netstandard2.0/Evento.dll"
+      ]
+    },
+    "Evento.Repository/4.3.0": {
+      "sha512": "YGzNZSoXZjsV4aDF7kqOJxk51KL3j7xgfBm+3BIr/iQGE8N+Myk3yppCrz50AblVdIv31YxRsA6dkt0GPltHpA==",
+      "type": "package",
+      "path": "evento.repository/4.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "evento.repository.4.3.0.nupkg.sha512",
+        "evento.repository.nuspec",
+        "lib/net462/Evento.Repository.dll",
+        "lib/netstandard2.0/Evento.Repository.dll"
       ]
     },
     "EventStore.Client/5.0.1": {
@@ -2111,6 +2174,74 @@
         "lib/netstandard2.0/Microsoft.AspNetCore.Http.Features.xml",
         "microsoft.aspnetcore.http.features.2.0.0.nupkg.sha512",
         "microsoft.aspnetcore.http.features.nuspec"
+      ]
+    },
+    "Microsoft.CSharp/4.5.0": {
+      "sha512": "kaj6Wb4qoMuH3HySFJhxwQfe8R/sJsNJnANrvv8WdFPMoNbKY5htfNscv+LHCu5ipz+49m2e+WQXpLXr9XYemQ==",
+      "type": "package",
+      "path": "microsoft.csharp/4.5.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net45/_._",
+        "lib/netcore50/Microsoft.CSharp.dll",
+        "lib/netcoreapp2.0/_._",
+        "lib/netstandard1.3/Microsoft.CSharp.dll",
+        "lib/netstandard2.0/Microsoft.CSharp.dll",
+        "lib/portable-net45+win8+wp8+wpa81/_._",
+        "lib/uap10.0.16299/_._",
+        "lib/win8/_._",
+        "lib/wp80/_._",
+        "lib/wpa81/_._",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "microsoft.csharp.4.5.0.nupkg.sha512",
+        "microsoft.csharp.nuspec",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/net45/_._",
+        "ref/netcore50/Microsoft.CSharp.dll",
+        "ref/netcore50/Microsoft.CSharp.xml",
+        "ref/netcore50/de/Microsoft.CSharp.xml",
+        "ref/netcore50/es/Microsoft.CSharp.xml",
+        "ref/netcore50/fr/Microsoft.CSharp.xml",
+        "ref/netcore50/it/Microsoft.CSharp.xml",
+        "ref/netcore50/ja/Microsoft.CSharp.xml",
+        "ref/netcore50/ko/Microsoft.CSharp.xml",
+        "ref/netcore50/ru/Microsoft.CSharp.xml",
+        "ref/netcore50/zh-hans/Microsoft.CSharp.xml",
+        "ref/netcore50/zh-hant/Microsoft.CSharp.xml",
+        "ref/netcoreapp2.0/_._",
+        "ref/netstandard1.0/Microsoft.CSharp.dll",
+        "ref/netstandard1.0/Microsoft.CSharp.xml",
+        "ref/netstandard1.0/de/Microsoft.CSharp.xml",
+        "ref/netstandard1.0/es/Microsoft.CSharp.xml",
+        "ref/netstandard1.0/fr/Microsoft.CSharp.xml",
+        "ref/netstandard1.0/it/Microsoft.CSharp.xml",
+        "ref/netstandard1.0/ja/Microsoft.CSharp.xml",
+        "ref/netstandard1.0/ko/Microsoft.CSharp.xml",
+        "ref/netstandard1.0/ru/Microsoft.CSharp.xml",
+        "ref/netstandard1.0/zh-hans/Microsoft.CSharp.xml",
+        "ref/netstandard1.0/zh-hant/Microsoft.CSharp.xml",
+        "ref/netstandard2.0/Microsoft.CSharp.dll",
+        "ref/netstandard2.0/Microsoft.CSharp.xml",
+        "ref/portable-net45+win8+wp8+wpa81/_._",
+        "ref/uap10.0.16299/_._",
+        "ref/win8/_._",
+        "ref/wp80/_._",
+        "ref/wpa81/_._",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "ref/xamarintvos10/_._",
+        "ref/xamarinwatchos10/_._",
+        "useSharedDesignerContext.txt",
+        "version.txt"
       ]
     },
     "Microsoft.DotNet.PlatformAbstractions/2.0.4": {
@@ -2926,32 +3057,42 @@
         "netstandard.library.nuspec"
       ]
     },
-    "Newtonsoft.Json/11.0.2": {
-      "sha512": "IvJe1pj7JHEsP8B8J8DwlMEx8UInrs/x+9oVY+oCD13jpLu4JbJU2WCIsMRn5C4yW9+DgkaO8uiVE5VHKjpmdQ==",
+    "Newtonsoft.Json/12.0.1": {
+      "sha512": "jmVyoEyk0In8r+AObYQyFKVFm7uSRzE0XSHSbEtBJcZDMV6DqJoyB4FLcHwprPVhAh826so0db3DIKXVnpGoPA==",
       "type": "package",
-      "path": "newtonsoft.json/11.0.2",
+      "path": "newtonsoft.json/12.0.1",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "LICENSE.md",
         "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.pdb",
         "lib/net20/Newtonsoft.Json.xml",
         "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.pdb",
         "lib/net35/Newtonsoft.Json.xml",
         "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.pdb",
         "lib/net40/Newtonsoft.Json.xml",
         "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.pdb",
         "lib/net45/Newtonsoft.Json.xml",
         "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.pdb",
         "lib/netstandard1.0/Newtonsoft.Json.xml",
         "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.pdb",
         "lib/netstandard1.3/Newtonsoft.Json.xml",
         "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.pdb",
         "lib/netstandard2.0/Newtonsoft.Json.xml",
         "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.pdb",
         "lib/portable-net40+sl5+win8+wp8+wpa81/Newtonsoft.Json.xml",
         "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.dll",
+        "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.pdb",
         "lib/portable-net45+win8+wp8+wpa81/Newtonsoft.Json.xml",
-        "newtonsoft.json.11.0.2.nupkg.sha512",
+        "newtonsoft.json.12.0.1.nupkg.sha512",
         "newtonsoft.json.nuspec"
       ]
     },
@@ -6492,15 +6633,26 @@
       "path": "../GoTime.Adapters/GoTime.Adapters.csproj",
       "msbuildProject": "../GoTime.Adapters/GoTime.Adapters.csproj"
     },
+    "GoTime.ApplicationServices/1.0.0": {
+      "type": "project",
+      "path": "../GoTime.ApplicationServices/GoTime.ApplicationServices.csproj",
+      "msbuildProject": "../GoTime.ApplicationServices/GoTime.ApplicationServices.csproj"
+    },
     "GoTime.Domain/1.0.0": {
       "type": "project",
       "path": "../GoTime.Domain/GoTime.Domain.csproj",
       "msbuildProject": "../GoTime.Domain/GoTime.Domain.csproj"
+    },
+    "GoTime.Models/1.0.0": {
+      "type": "project",
+      "path": "../GoTime.Models/GoTime.Models.csproj",
+      "msbuildProject": "../GoTime.Models/GoTime.Models.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.2": [
       "EventStore.Client >= 5.0.1",
+      "Evento.Repository >= 4.3.0",
       "GoTime.Adapters >= 1.0.0",
       "Microsoft.Extensions.Configuration.EnvironmentVariables >= 2.2.0",
       "Microsoft.Extensions.Configuration.Json >= 2.2.0",
@@ -6570,6 +6722,10 @@
           "EventStore.Client": {
             "target": "Package",
             "version": "[5.0.1, )"
+          },
+          "Evento.Repository": {
+            "target": "Package",
+            "version": "[4.3.0, )"
           },
           "Microsoft.Extensions.Configuration.EnvironmentVariables": {
             "target": "Package",

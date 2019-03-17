@@ -5,6 +5,7 @@ using Evento.Repository;
 using EventStore.ClientAPI;
 using EventStore.ClientAPI.SystemData;
 using GoTime.Adapters;
+using GoTime.ApplicationServices.Impl;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -43,7 +44,7 @@ namespace GoTimeDomain.Host
             CreateSubscription (_inputAdapterSubscriberConnection);
 
             var repo = new EventStoreDomainRepository ("domain", _inputAdapterSubscriberConnection);
-            _endpoint = new InputAdapterEndPoint (repo, _inputAdapterSubscriberConnection, _settings.StreamName, new InputCommandHandler (repo));
+            _endpoint = new InputAdapterEndPoint (repo, _inputAdapterSubscriberConnection, _settings.StreamName, new InputCommandHandler (repo, new GoBoardApplicationServiceV1()));
             _endpoint.Start ();
 
             return Task.CompletedTask;

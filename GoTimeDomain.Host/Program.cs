@@ -69,7 +69,7 @@ namespace GoTimeDomain.Host
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.AddScoped(configuration);
+                    services.AddSingleton(configuration);
                     services.AddScoped<Settings>();
                     services.AddHostedService<EsPersistentSubscription>();
                 })

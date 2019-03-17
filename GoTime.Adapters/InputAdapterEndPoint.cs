@@ -1,19 +1,28 @@
 ﻿using Evento;
 using EventStore.ClientAPI;
+using GoTime.Adapters.CommandBuilders;
+using GoTime.Domain.Commands;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace GoTime.Adapters
 {
     public class InputAdapterEndPoint
     {
         private IDomainRepository _repo;
-        private IEventStoreConnection _inputAdapterSubscriberConnection;
+        private IEventStoreConnection _subscriberConnection;
         private string _streamName;
         private InputCommandHandler _commandHandler;
-        
-        public InputAdapterEndPoint(IDomainRepository repo, IEventStoreConnection inputAdapterSubscriberConnection, string streamName, InputCommandHandler handler)
+        private Dictionary<string, Func<object, IAggregate>> _eventHandlerMapping;
+        private Dictionary<string, Func<string[], Command>> _deserialisers;
+        private const string EventStoreGroup = "input-actions";
+
+        public InputAdapterEndPoint(IDomainRepository repo, IEventStoreConnection subscriberConnection, string streamName, InputCommandHandler handler)
         {
             _repo = repo;
-            _inputAdapterSubscriberConnection = inputAdapterSubscriberConnection;
+            _subscriberConnection = subscriberConnection;
             _streamName = streamName;
             _commandHandler = handler;
         }
@@ -22,8 +31,8 @@ namespace GoTime.Adapters
         {
             _deserialisers = CreateDeserialisersMapping();
             _eventHandlerMapping = CreateEventHandlerMapping();
-            _connection.Reconnecting += Connection_Reconnecting;
-            _connection.Connected += Subscriber_Connected;
+            _subscriberConnection.Reconnecting += Connection_Reconnecting;
+            _subscriberConnection.Connected += Subscriber_Connected;
 
             SubscribeMe();
 
@@ -34,7 +43,7 @@ namespace GoTime.Adapters
         {
             try
             {
-                _connection.ConnectToPersistentSubscriptionAsync(_streamName, EventStoreGroup, EventAppeared, SubscriptionDropped).Wait();
+                _subscriberConnection.ConnectToPersistentSubscriptionAsync(_streamName, EventStoreGroup, EventAppeared, SubscriptionDropped).Wait();
             }
             catch (Exception e)
             {
@@ -58,31 +67,31 @@ namespace GoTime.Adapters
         {
             return new Dictionary<string, Func<object, IAggregate>>
             {
-                {"NewGame", o => _handler.Handle(o as StartNewGame)},
-                {"AcceptGame", o => _handler.Handle(o as AcceptNewGame)},
-                {"RejectGame", o => _handler.Handle(o as RejectNewGame)},
-                {"GoMove", o => _handler.Handle(o as MovePiece)},
+                {"NewGame", o => _commandHandler.Handle(o as NewGame)},
+                {"AcceptGame", o => _commandHandler.Handle(o as AcceptNewGame)},
+                {"RejectGame", o => _commandHandler.Handle(o as RejectNewGame)},
+                {"GoMove", o => _commandHandler.Handle(o as AddStone)},
             };
         }
 
         private Command ToCreateNewGameCommand(string[] metadataAndBody)
         {
-            return new SlmmStartBuilder(metadataAndBody[1]).Build();
+            return new NewGameBuilder(metadataAndBody[1]).Build();
         }
 
         private Command ToStartGameCommand(string[] metadataAndBody)
         {
-            return new SlmmRotateBuilder(metadataAndBody[1]).Build();
+            return new StartGameBuilder(metadataAndBody[1]).Build();
         }
 
         private Command ToRejectGameCommand(string[] metadataAndBody)
         {
-            return new SlmmRotateBuilder(metadataAndBody[1]).Build();
+            return new RejectGameBuilder(metadataAndBody[1]).Build();
         }
 
         private Command ToMakeGoMoveCommand(string[] metadataAndBody)
         {
-            return new SlmmMoveBuilder(metadataAndBody[1]).Build();
+            return new MovePieceBuilder(metadataAndBody[1]).Build();
         }
 
         private void Subscriber_Connected(object sender, ClientConnectionEventArgs e)
@@ -147,7 +156,7 @@ namespace GoTime.Adapters
 
         public void Stop()
         {
-            _connection.Close();
+            _subscriberConnection.Close();
         }
     }
 }
