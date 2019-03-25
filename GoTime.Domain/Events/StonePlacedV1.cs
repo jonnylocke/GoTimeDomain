@@ -1,5 +1,5 @@
 ﻿using Evento;
-using GoTime.Domain.Enums;
+using GoTime.Models;
 using System;
 using System.Collections.Generic;
 

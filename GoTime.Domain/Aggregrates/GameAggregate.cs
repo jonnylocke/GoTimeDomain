@@ -78,7 +78,7 @@ namespace GoTime.Domain.Aggregrates
                 }
             }
 
-            LastMove.Update(obj.PlayerId, obj.XPosition, obj.YPosition);
+            LastMove.Update(obj.PlayerId, obj.XPosition, obj.YPosition, obj.Colour);
 
             _allMoves.Add(LastMove);
         }
@@ -123,7 +123,7 @@ namespace GoTime.Domain.Aggregrates
             RaiseEvent(new StonePlacedV1(cmd.CorrelationId, cmd.UserId, cmd.GameId, cmd.PositionX, cmd.PositionY));
 
             var currentMove = Move.New();
-            currentMove.Update(cmd.UserId, cmd.PositionX, cmd.PositionY);
+            currentMove.Update(cmd.UserId, cmd.PositionX, cmd.PositionY, ColourSelection.Black); // <-- TODO need to get the colour and test
 
             _allMoves.Add(currentMove);
         }

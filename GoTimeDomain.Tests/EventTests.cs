@@ -1,16 +1,10 @@
-using Evento;
-using GoTime.Adapters;
-using GoTime.Domain.Aggregrates;
-using GoTime.Domain.Commands;
 using GoTime.Domain.Enums;
 using GoTime.Domain.Events;
 using GoTime.Models;
-using Moq;
 using NUnit.Framework;
 using System;
-using System.Linq;
 
-namespace Tests
+namespace GoTimeDomain.Tests
 {
     public class EventTests
     {

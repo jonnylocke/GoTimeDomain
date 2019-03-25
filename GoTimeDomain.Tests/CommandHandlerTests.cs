@@ -1,7 +1,6 @@
 using Evento;
 using GoTime.Adapters;
 using GoTime.ApplicationServices.Interfaces;
-using GoTime.Domain;
 using GoTime.Domain.Aggregrates;
 using GoTime.Domain.Commands;
 using GoTime.Domain.Enums;
@@ -13,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Tests
+namespace GoTimeDomain.Tests
 {
     public class CommandHandlerTests
     {
@@ -100,7 +99,22 @@ namespace Tests
         [Test]
         public void GameAggregate_HandlePlaceMoveCommand_ShouldRaiseAStonePlacedV1Event()
         {
+            var correlationId = Guid.NewGuid();
+            var userId = Guid.NewGuid();
+            var oppontentId = Guid.NewGuid();
+            var gameId = Guid.NewGuid();
+            var playerOneColour = ColourSelection.Black;
+            var playerTwoColour = ColourSelection.White;
+            var boardSize = BoardSize.ThirteenByThirteen;
+
+            var evt1 = new GameCreatedV1(correlationId.ToString(), userId, oppontentId, gameId, playerOneColour, boardSize);
+            var evt2 = new AcceptNewGameV1(correlationId.ToString(), oppontentId, gameId, playerTwoColour);
+            var evt3 = new StonePlacedV1(correlationId.ToString(), userId, gameId, "c", 3);
+
             var aggregate = new GameAggregate();
+            aggregate.ApplyEvent(evt1);
+            aggregate.ApplyEvent(evt2);
+            aggregate.ApplyEvent(evt3);
 
             var mockRepo = new Mock<IDomainRepository>();
             mockRepo

@@ -1,21 +1,17 @@
-using Evento;
-using GoTime.Adapters;
-using GoTime.Domain;
 using GoTime.Domain.Aggregrates;
-using GoTime.Domain.Commands;
 using GoTime.Domain.Enums;
 using GoTime.Domain.Events;
 using GoTime.Domain.Exceptions;
 using GoTime.Models;
-using Moq;
 using NUnit.Framework;
 using System;
-using System.Linq;
 
-namespace Tests
+namespace GoTimeDomain.Tests
 {
     public class AggregateTests
     {
+        // TODO refactor asserts
+        // and add setup
         [SetUp]
         public void Setup()
         {
@@ -133,14 +129,14 @@ namespace Tests
 
             var expectedMoveNumber = 1;
 
-            var expectedPosition = Position.New();
-            expectedPosition.X = "c";
+            var expectedPosition = Move.New();
+            expectedPosition.X = 4;
             expectedPosition.Y = 3;
 
             var lastMove = Move.New();
             lastMove.PlayerId = userId;
             lastMove.Number = expectedMoveNumber;
-            lastMove.Position = expectedPosition;
+            //lastMove.Position = expectedPosition;
 
             var evt1 = new GameCreatedV1(correlationId.ToString(), userId, oppontentId, gameId, playerOneColour, boardSize);
             var evt2 = new AcceptNewGameV1(correlationId.ToString(), oppontentId, gameId, playerTwoColour);
@@ -170,8 +166,8 @@ namespace Tests
             Assert.AreEqual(userId, aggregate.LastMove.PlayerId);
             Assert.AreEqual(expectedMoveNumber, aggregate.LastMove.Number);
 
-            Assert.AreEqual(expectedPosition.X, aggregate.LastMove.Position.X);
-            Assert.AreEqual(expectedPosition.Y, aggregate.LastMove.Position.Y);
+            Assert.AreEqual(expectedPosition.X, aggregate.LastMove.X);
+            Assert.AreEqual(expectedPosition.Y, aggregate.LastMove.Y);
 
         }
 
@@ -188,14 +184,14 @@ namespace Tests
 
             var expectedMoveNumber = 2;
 
-            var expectedPosition = Position.New();
-            expectedPosition.X = "d";
-            expectedPosition.Y = 4;
+            //var expectedPosition = Move.New();
+            //expectedPosition.X = 5;
+            //expectedPosition.Y = 4;
 
             var evt1 = new GameCreatedV1(correlationId.ToString(), userId, oppontentId, gameId, playerOneColour, boardSize);
             var evt2 = new AcceptNewGameV1(correlationId.ToString(), oppontentId, gameId, playerTwoColour);
             var evt3 = new StonePlacedV1(correlationId.ToString(), userId, gameId, "c", 3);
-            var evt4 = new StonePlacedV1(correlationId.ToString(), oppontentId, gameId, expectedPosition.X, expectedPosition.Y);
+            var evt4 = new StonePlacedV1(correlationId.ToString(), oppontentId, gameId, "e", 3);
 
             var aggregate = new GameAggregate();
             aggregate.ApplyEvent(evt1);
@@ -221,9 +217,6 @@ namespace Tests
 
             Assert.AreEqual(oppontentId, aggregate.LastMove.PlayerId);
             Assert.AreEqual(expectedMoveNumber, aggregate.LastMove.Number);
-
-            Assert.AreEqual(expectedPosition.X, aggregate.LastMove.Position.X);
-            Assert.AreEqual(expectedPosition.Y, aggregate.LastMove.Position.Y);
         }
 
         [Test]
@@ -237,14 +230,14 @@ namespace Tests
             var playerTwoColour = ColourSelection.White;
             var boardSize = BoardSize.ThirteenByThirteen;
 
-            var expectedPosition = Position.New();
-            expectedPosition.X = "d";
-            expectedPosition.Y = 4;
+            //var expectedPosition = Move.New();
+            //expectedPosition.X = "d";
+            //expectedPosition.Y = 4;
 
             var evt1 = new GameCreatedV1(correlationId.ToString(), userId, oppontentId, gameId, playerOneColour, boardSize);
             var evt2 = new AcceptNewGameV1(correlationId.ToString(), oppontentId, gameId, playerTwoColour);
             var evt3 = new StonePlacedV1(correlationId.ToString(), userId, gameId, "c", 3);
-            var evt4 = new StonePlacedV1(correlationId.ToString(), userId, gameId, expectedPosition.X, expectedPosition.Y);
+            var evt4 = new StonePlacedV1(correlationId.ToString(), userId, gameId, "d", 3);
 
             var aggregate = new GameAggregate();
             aggregate.ApplyEvent(evt1);
