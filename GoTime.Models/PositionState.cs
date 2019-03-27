@@ -8,6 +8,7 @@ namespace GoTime.Models
     {
         Empty,
         OccupiedByBlack,
-        OccupiedByWhite
+        OccupiedByWhite,
+        Suicide
     }
 }

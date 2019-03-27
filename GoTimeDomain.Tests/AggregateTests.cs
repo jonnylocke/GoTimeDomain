@@ -129,18 +129,12 @@ namespace GoTimeDomain.Tests
 
             var expectedMoveNumber = 1;
 
-            var expectedPosition = Move.New();
-            expectedPosition.X = 4;
-            expectedPosition.Y = 3;
-
-            var lastMove = Move.New();
-            lastMove.PlayerId = userId;
-            lastMove.Number = expectedMoveNumber;
-            //lastMove.Position = expectedPosition;
+            var expectedMove = Move.New();
+            expectedMove.Update(userId, "d", 3, playerOneColour);
 
             var evt1 = new GameCreatedV1(correlationId.ToString(), userId, oppontentId, gameId, playerOneColour, boardSize);
             var evt2 = new AcceptNewGameV1(correlationId.ToString(), oppontentId, gameId, playerTwoColour);
-            var evt3 = new StonePlacedV1(correlationId.ToString(), userId, gameId, "c", 3);
+            var evt3 = new StonePlacedV1(correlationId.ToString(), userId, gameId, "d", 3);
 
             var aggregate = new GameAggregate();
             aggregate.ApplyEvent(evt1);
@@ -166,8 +160,8 @@ namespace GoTimeDomain.Tests
             Assert.AreEqual(userId, aggregate.LastMove.PlayerId);
             Assert.AreEqual(expectedMoveNumber, aggregate.LastMove.Number);
 
-            Assert.AreEqual(expectedPosition.X, aggregate.LastMove.X);
-            Assert.AreEqual(expectedPosition.Y, aggregate.LastMove.Y);
+            Assert.AreEqual(expectedMove.X, aggregate.LastMove.X);
+            Assert.AreEqual(expectedMove.Y, aggregate.LastMove.Y);
 
         }
 
@@ -183,10 +177,6 @@ namespace GoTimeDomain.Tests
             var boardSize = BoardSize.ThirteenByThirteen;
 
             var expectedMoveNumber = 2;
-
-            //var expectedPosition = Move.New();
-            //expectedPosition.X = 5;
-            //expectedPosition.Y = 4;
 
             var evt1 = new GameCreatedV1(correlationId.ToString(), userId, oppontentId, gameId, playerOneColour, boardSize);
             var evt2 = new AcceptNewGameV1(correlationId.ToString(), oppontentId, gameId, playerTwoColour);
@@ -229,10 +219,6 @@ namespace GoTimeDomain.Tests
             var playerOneColour = ColourSelection.Black;
             var playerTwoColour = ColourSelection.White;
             var boardSize = BoardSize.ThirteenByThirteen;
-
-            //var expectedPosition = Move.New();
-            //expectedPosition.X = "d";
-            //expectedPosition.Y = 4;
 
             var evt1 = new GameCreatedV1(correlationId.ToString(), userId, oppontentId, gameId, playerOneColour, boardSize);
             var evt2 = new AcceptNewGameV1(correlationId.ToString(), oppontentId, gameId, playerTwoColour);

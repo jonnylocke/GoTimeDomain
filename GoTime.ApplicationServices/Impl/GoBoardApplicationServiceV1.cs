@@ -1,6 +1,5 @@
 ﻿using GoTime.ApplicationServices.Interfaces;
 using GoTime.Models;
-using System;
 using System.Collections.Generic;
 
 namespace GoTime.ApplicationServices.Impl
@@ -10,6 +9,8 @@ namespace GoTime.ApplicationServices.Impl
 
         public BoardPosition[,] GetNextBoardPositions(IEnumerable<Move> moves, BoardSize boardSize)
         {
+            // TODO: refactor to pipe of things
+            // work out the colour of the next move in order to work out the next spaces posStates
             var retVal = SetupEmptyBoard(GetBoardDimension(boardSize));
 
             foreach (var move in moves)

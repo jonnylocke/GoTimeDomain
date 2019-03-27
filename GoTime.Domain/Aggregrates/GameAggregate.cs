@@ -70,7 +70,7 @@ namespace GoTime.Domain.Aggregrates
                 LastMove = Move.New();
             }
 
-            if (LastMove.PlayerId != null)
+            if (LastMove.PlayerId != Guid.Empty)
             {
                 if (LastMove.PlayerId == obj.PlayerId)
                 {

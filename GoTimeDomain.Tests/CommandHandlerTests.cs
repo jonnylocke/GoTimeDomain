@@ -100,8 +100,8 @@ namespace GoTimeDomain.Tests
         public void GameAggregate_HandlePlaceMoveCommand_ShouldRaiseAStonePlacedV1Event()
         {
             var correlationId = Guid.NewGuid();
-            var userId = Guid.NewGuid();
-            var oppontentId = Guid.NewGuid();
+            var userId = Guid.Parse("d1c9eddd-1ed4-48fc-8315-612339f69f7a");
+            var oppontentId = Guid.Parse("50806c18-c7a5-4871-8c39-b49e37165d00");
             var gameId = Guid.NewGuid();
             var playerOneColour = ColourSelection.Black;
             var playerTwoColour = ColourSelection.White;
@@ -121,7 +121,14 @@ namespace GoTimeDomain.Tests
                 .Setup(x => x.GetById<GameAggregate>(It.IsAny<string>()))
                 .Returns(aggregate);
 
-            var cmd = new AddStone();
+            var cmd = new AddStone
+            {
+                PositionX = "e",
+                PositionY = 6,
+                GameId = gameId,
+                UserId = oppontentId,
+                CorrelationId = correlationId.ToString()
+            };
 
             var sut = new InputCommandHandler(mockRepo.Object, Mock.Of<IGoBoardApplicationService>());
 
@@ -136,8 +143,8 @@ namespace GoTimeDomain.Tests
             var appService = new Mock<IGoBoardApplicationService>();
 
             var correlationId = Guid.NewGuid();
-            var userId = Guid.NewGuid();
-            var oppontentId = Guid.NewGuid();
+            var userId = Guid.Parse("d1c9eddd-1ed4-48fc-8315-612339f69f7a");
+            var oppontentId = Guid.Parse("50806c18-c7a5-4871-8c39-b49e37165d00");
             var gameId = Guid.NewGuid();
             var playerOneColour = ColourSelection.Black;
             var playerTwoColour = ColourSelection.White;
@@ -159,7 +166,14 @@ namespace GoTimeDomain.Tests
                 .Setup(x => x.GetById<GameAggregate>(It.IsAny<string>()))
                 .Returns(aggregate);
 
-            var cmd = new AddStone();
+            var cmd = new AddStone
+            {
+                PositionX = "e",
+                PositionY = 6,
+                GameId = gameId,
+                UserId = userId,
+                CorrelationId = correlationId.ToString()
+            };
 
             var sut = new InputCommandHandler(mockRepo.Object, appService.Object);
 

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GoTime.Models
+﻿namespace GoTime.Models
 {
     public class BoardPosition
     {
@@ -18,6 +14,11 @@ namespace GoTime.Models
         public void SetPositionStatue(PositionState positionState)
         {
             PositionState = positionState;
+        }
+
+        public override string ToString()
+        {
+            return $"PositionState: {PositionState}";
         }
     }
 }

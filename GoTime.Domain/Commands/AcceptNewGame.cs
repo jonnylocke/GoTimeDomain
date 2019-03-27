@@ -9,8 +9,8 @@ namespace GoTime.Domain.Commands
         public IDictionary<string, string> Metadata { get; set; }
 
         public string CorrelationId { get; set; }
-        public Guid UserId { get; private set; }
-        public Guid OpponentId { get; private set; }
-        public Guid GameId { get; private set; }
+        public Guid UserId { get; set; }
+        public Guid OpponentId { get; set; }
+        public Guid GameId { get; set; }
     }
 }
